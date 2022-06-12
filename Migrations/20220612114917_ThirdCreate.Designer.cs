@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieTracker.Data;
 
@@ -11,9 +12,10 @@ using MovieTracker.Data;
 namespace MovieTracker.Migrations
 {
     [DbContext(typeof(MovieTrackerContext))]
-    partial class MovieTrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20220612114917_ThirdCreate")]
+    partial class ThirdCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

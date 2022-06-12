@@ -13,6 +13,8 @@ namespace MovieTracker.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategoryOfMovie> CategoryOfMovies { get; set; }
         public DbSet<Watched> Watcheds { get; set; }
+        public DbSet<Actor> Actors { get; set; }
+        public DbSet<Cast> Casts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -55,6 +57,19 @@ namespace MovieTracker.Data
                 .HasOne(arp => arp.Category)
                 .WithMany(rp => rp.CategoryOfMovies)
                 .HasForeignKey(arp => arp.IdCategory);
+
+            modelBuilder.Entity<Cast>().HasKey(arp => new { arp.IdActor, arp.IdMovie });
+
+            modelBuilder.Entity<Cast>()
+                .HasOne(arp => arp.Movie)
+                .WithMany(a => a.Casts)
+                .HasForeignKey(arp => arp.IdMovie);
+
+            modelBuilder.Entity<Cast>()
+                .HasOne(arp => arp.Actor)
+                .WithMany(rp => rp.Casts)
+                .HasForeignKey(arp => arp.IdActor);
+
 
             modelBuilder.Entity<UserRole>(ur =>
             {
