@@ -65,6 +65,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpDelete("DeleteCategory{name}")]
+        //DELETE category
         public async Task<IActionResult> Delete([FromRoute] string name)
         {
 
