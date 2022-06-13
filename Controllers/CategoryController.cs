@@ -35,6 +35,21 @@ namespace MovieTracker.Controllers
             return Ok(categoriesToReturn);
         }
 
+        [HttpGet("{name}")]
+        // READ pt un nume de film dat
+        public async Task<IActionResult> GetCategoryByName(string name)
+        {
+            var category = await _repositoryCategory.GetCategoryByName(name);
+            if (category == null)
+            {
+                return BadRequest("The category you search cannot be found!");
+            }
+            var categoryToReturn = new CategoryDTO(category);
+
+            return Ok(categoryToReturn);
+
+        }
+
         [HttpPost("AddMovie")]
         //CREATE category
         public async Task<IActionResult> Create([FromBody] CategoryDTO category)

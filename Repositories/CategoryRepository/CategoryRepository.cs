@@ -13,5 +13,9 @@ namespace MovieTracker.Repositories.CategoryRepository
         {
             return await GetAll().ToListAsync();
         }
+        public async Task<Category> GetCategoryByName(string name)
+        {
+            return await _context.Categories.Where(a => a.Name.Equals(name)).FirstOrDefaultAsync();
+        }
     }
 }
