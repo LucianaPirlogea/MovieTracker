@@ -11,6 +11,7 @@ namespace MovieTracker.Models.DTOs
         public int Duration { get; set; }
         public byte[] Poster { get; set; }
 
+        public MovieDTO() { }
         public MovieDTO(Movie movie)
         {
             this.Id = movie.Id;
