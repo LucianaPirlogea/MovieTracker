@@ -36,7 +36,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("{name}")]
-        // READ pt un nume de film dat
+        // READ pt un nume de categorie dat
         public async Task<IActionResult> GetCategoryByName(string name)
         {
             var category = await _repositoryCategory.GetCategoryByName(name);
@@ -50,7 +50,7 @@ namespace MovieTracker.Controllers
 
         }
 
-        [HttpPost("AddMovie")]
+        [HttpPost("AddCategory")]
         //CREATE category
         public async Task<IActionResult> Create([FromBody] CategoryDTO category)
         {
@@ -63,5 +63,17 @@ namespace MovieTracker.Controllers
             await _repositoryCategory.SaveAsync();
             return Ok();
         }
+
+        [HttpDelete("DeleteCategory{name}")]
+        public async Task<IActionResult> Delete([FromRoute] string name)
+        {
+
+            var categoryDeleted = await _repositoryCategory.GetCategoryByName(name);
+            _repositoryCategory.Delete(categoryDeleted);
+            await _repositoryCategory.SaveAsync();
+            return Ok();
+        }
+
+
     }
 }
