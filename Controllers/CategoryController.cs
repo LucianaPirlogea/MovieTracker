@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MovieTracker.Entities;
 using MovieTracker.Models.DTOs;
 using MovieTracker.Repositories.CategoryRepository;
 
@@ -32,6 +33,20 @@ namespace MovieTracker.Controllers
             }
 
             return Ok(categoriesToReturn);
+        }
+
+        [HttpPost("AddMovie")]
+        //CREATE category
+        public async Task<IActionResult> Create([FromBody] CategoryDTO category)
+        {
+            var newCategory = new Category
+            {
+               Name = category.Name
+            };
+
+            _repositoryCategory.Create(newCategory);
+            await _repositoryCategory.SaveAsync();
+            return Ok();
         }
     }
 }
