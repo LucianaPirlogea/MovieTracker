@@ -94,5 +94,15 @@ namespace MovieTracker.Controllers
             await _repositoryActor.SaveAsync();
             return Ok();
         }
+
+        [HttpDelete("DeleteActor{name}")]
+        public async Task<IActionResult> Delete([FromRoute] string name)
+        {
+
+            var actorDeleted = await _repositoryActor.GetActorByName(name);
+            _repositoryActor.Delete(actorDeleted);
+            await _repositoryActor.SaveAsync();
+            return Ok();
+        }
     }
 }
