@@ -8,6 +8,8 @@ namespace MovieTracker.Models.DTOs
         public string Name { get; set; }
         public byte[] Image { get; set; }
 
+        public ActorDTO() { }
+
         public ActorDTO(Actor actor)
         {
             this.Id = actor.Id;
