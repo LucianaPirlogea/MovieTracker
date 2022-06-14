@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieTracker.Data;
 
 using MovieTracker.Repositories.ActorRepository;
+using MovieTracker.Repositories.CategoryOfMoviesRepository;
 using MovieTracker.Repositories.CategoryRepository;
 using MovieTracker.Repositories.MovieRepository;
 using MovieTracker.Repositories.ReviewRepository;
@@ -21,6 +22,7 @@ builder.Services.AddTransient<IMovieRepository, MovieRepository>();
 builder.Services.AddTransient<IActorRepository, ActorRepository>();
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddTransient<IReviewRepository, ReviewRepository>();
+builder.Services.AddTransient<ICategoryOfMoviesRepository, CategoryOfMoviesRepository>();
 
 
 var app = builder.Build();
