@@ -49,5 +49,33 @@ namespace MovieTracker.Controllers
             await _repositoryCast.SaveAsync();
             return Ok();
         }
+
+        //DELETE cast
+        [HttpDelete("DeleteCast/{movieTitle}_{actorName}")]
+        public async Task<IActionResult> Delete(string movieTitle, string actorName)
+        {
+
+            var movie = await _repositoryMovie.GetMovieByName(movieTitle);
+            if (movie == null)
+            {
+                return BadRequest("The movie cannot be found!");
+            }
+
+            var actor = await _repositoryActor.GetActorByName(actorName);
+            if (actor == null)
+            {
+                return BadRequest("The actor cannot be found!");
+            }
+
+            var castDeleted = await _repositoryCast.GetCastByIds(movie.Id, actor.Id);
+
+            if (castDeleted == null)
+            {
+                return BadRequest("There is no cast with this actor and movie.");
+            }
+            _repositoryCast.Delete(castDeleted);
+            await _repositoryCast.SaveAsync();
+            return Ok();
+        }
     }
 }
