@@ -127,6 +127,11 @@ namespace MovieTracker.Controllers
         {
 
             var movieDeleted = await _repositoryMovie.GetMovieByName(name);
+
+            if (movieDeleted == null)
+            {
+                return BadRequest("There is no movie with this name");
+            }
             _repositoryMovie.Delete(movieDeleted);
             await _repositoryMovie.SaveAsync();
             return Ok();
