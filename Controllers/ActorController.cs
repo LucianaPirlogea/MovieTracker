@@ -85,5 +85,14 @@ namespace MovieTracker.Controllers
             return Ok();
         }
 
+        [HttpPut("UpdateActor")]
+        public async Task<IActionResult> Update([FromBody] ActorDTO actor)
+        {
+            var actorUpdated = await _repositoryActor.GetActorByName(actor.Name);
+            actorUpdated.Image = actor.Image;
+            _repositoryActor.Update(actorUpdated);
+            await _repositoryActor.SaveAsync();
+            return Ok();
+        }
     }
 }
