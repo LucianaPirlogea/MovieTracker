@@ -39,6 +39,13 @@ namespace MovieTracker.Controllers
                 return BadRequest("The actor cannot be found!");
             }
 
+            var cast = await _repositoryCast.GetCastByIds(movie.Id, actor.Id);
+
+            if (cast != null)
+            {
+                return BadRequest("This actor is already associated with this movie.");
+            }
+
             var newCast = new Cast
             {
                 IdMovie = movie.Id,
