@@ -8,6 +8,8 @@ namespace MovieTracker.Models.DTOs
         public int NumberOfStars { get; set; }
         public string Comment { get; set; }
         public DateTime Date { get; set; }
+
+        public ReviewDTO() { }
         public ReviewDTO(Review review)
         {
             this.Id = review.Id;
