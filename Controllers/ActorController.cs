@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MovieTracker.Entities;
 using MovieTracker.Models.DTOs;
 using MovieTracker.Repositories.ActorRepository;
 
@@ -67,6 +68,21 @@ namespace MovieTracker.Controllers
 
             return Ok(actorsToReturn);
 
+        }
+
+        [HttpPost("AddActor")]
+        public async Task<IActionResult> Create([FromBody] ActorDTO actor)
+        {
+            var newActor = new Actor
+            {
+                Id = actor.Id,
+                Name = actor.Name,
+                Image = actor.Image
+            };
+
+            _repositoryActor.Create(newActor);
+            await _repositoryActor.SaveAsync();
+            return Ok();
         }
 
     }
