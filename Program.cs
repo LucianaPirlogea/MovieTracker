@@ -17,6 +17,7 @@ using MovieTracker.Services.UserService;
 using MovieTracker.Repositories;
 using MovieTracker.Seed;
 using Microsoft.OpenApi.Models;
+using MovieTracker.Repositories.WatchedRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -109,6 +110,7 @@ builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddTransient<IReviewRepository, ReviewRepository>();
 builder.Services.AddTransient<ICategoryOfMoviesRepository, CategoryOfMoviesRepository>();
 builder.Services.AddTransient<ICastRepository, CastRepository>();
+builder.Services.AddTransient<IWatchedRepository, WatchedRepository>();
 
 
 

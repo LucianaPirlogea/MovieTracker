@@ -7,7 +7,6 @@ namespace MovieTracker.Models.DTOs
         public int Id { get; set; }
         public int NumberOfStars { get; set; }
         public string Comment { get; set; }
-        public DateTime Date { get; set; }
 
         public ReviewDTO() { }
         public ReviewDTO(Review review)
@@ -15,8 +14,6 @@ namespace MovieTracker.Models.DTOs
             this.Id = review.Id;
             this.NumberOfStars = review.NumberOfStars;
             this.Comment = review.Comment;
-            this.Date = review.Date;
-
         }
     }
 }

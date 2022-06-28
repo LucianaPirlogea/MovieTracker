@@ -2,6 +2,7 @@
 using MovieTracker.Entities;
 using MovieTracker.Models.DTOs;
 using MovieTracker.Repositories.ReviewRepository;
+using MovieTracker.Repositories.WatchedRepository;
 
 namespace MovieTracker.Controllers
 {
@@ -10,10 +11,12 @@ namespace MovieTracker.Controllers
     public class ReviewController : ControllerBase
     {
         private readonly IReviewRepository _repositoryReview;
+        private readonly IWatchedRepository _repositoryWatched;
 
-        public ReviewController(IReviewRepository repositoryReview)
+        public ReviewController(IReviewRepository repositoryReview, IWatchedRepository repositoryWatched)
         {
             _repositoryReview = repositoryReview;
+            _repositoryWatched = repositoryWatched;
         }
 
         [HttpGet]
@@ -42,7 +45,7 @@ namespace MovieTracker.Controllers
 
             if (review == null)
             {
-                return BadRequest("There are no reviews for this number of stars");
+                return BadRequest("There is no review with this id");
             }
 
             var reviewToReturn = new ReviewDTO(review);
@@ -130,12 +133,12 @@ namespace MovieTracker.Controllers
 
         [HttpPost("AddReview")]
         public async Task<IActionResult> Create([FromBody] ReviewDTO review)
-        {
+        {   
             var newReview = new Review
             {
                 NumberOfStars = review.NumberOfStars,
                 Comment = review.Comment,
-                Date = review.Date
+                Date = DateTime.Now
             };
 
             _repositoryReview.Create(newReview);
@@ -150,7 +153,7 @@ namespace MovieTracker.Controllers
 
             reviewUpdated.NumberOfStars = review.NumberOfStars;
             reviewUpdated.Comment = review.Comment;
-            reviewUpdated.Date = review.Date;
+            reviewUpdated.Date = DateTime.Now;
             _repositoryReview.Update(reviewUpdated);
             await _repositoryReview.SaveAsync();
             return Ok();
