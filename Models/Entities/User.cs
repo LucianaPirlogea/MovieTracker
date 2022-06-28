@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using MovieTracker.Models.Entities;
 
 namespace MovieTracker.Entities
 {
@@ -7,9 +8,7 @@ namespace MovieTracker.Entities
         public User() : base() { }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int? FollowerId { get; set; }
-        public virtual User Follower { get; set; }
-        public virtual ICollection<User> FollowingUsers { get; set; }
+        public virtual ICollection<UserFollowing> Following { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
         public ICollection<Watched> Watcheds { get; set; }
     }

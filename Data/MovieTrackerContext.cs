@@ -1,13 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MovieTracker.Entities;
+using MovieTracker.Models.Entities;
 
 namespace MovieTracker.Data
 {
-    public class MovieTrackerContext: DbContext
+    public class MovieTrackerContext: IdentityDbContext<User, Role, int,
+        IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>,
+        IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public MovieTrackerContext(DbContextOptions<MovieTrackerContext> options) : base(options) { }
 
-        public DbSet<User> Users { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -15,16 +19,23 @@ namespace MovieTracker.Data
         public DbSet<Watched> Watcheds { get; set; }
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Cast> Casts { get; set; }
+        public DbSet<SessionToken> SessionTokens { get; set; }
+
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             // One to Many
 
-            modelBuilder.Entity<User>()
-                .HasOne(b => b.Follower)
-                .WithMany(b => b.FollowingUsers)
-                .HasForeignKey(b => b.FollowerId)
-                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<UserFollowing>(b =>
+            {
+                b.HasKey(e => new { e.UserId, e.FollowingPersonId });
+                b.HasOne(e => e.User).WithMany(e => e.Following);
+                b.HasOne(e => e.FollowingPerson).WithMany().OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
 
             // One to One
 
@@ -76,11 +87,11 @@ namespace MovieTracker.Data
                 ur.HasKey(ur => new { ur.UserId, ur.RoleId });
 
                 ur.HasOne(ur => ur.Role).WithMany(r => r.UserRoles).HasForeignKey(ur => ur.RoleId);
-                ur.HasOne(ur => ur.User).WithMany(u => u.UserRoles).HasForeignKey(ur => ur.UserId);
+                ur.HasOne(ur => ur.User).WithMany(u => u.UserRoles).HasForeignKey(ur => ur.UserId); 
             });
 
 
-            base.OnModelCreating(modelBuilder);
+            
         }
 
     }
