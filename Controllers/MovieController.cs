@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieTracker.Entities;
 using MovieTracker.Models.DTOs;
+using MovieTracker.Repositories;
 using MovieTracker.Repositories.MovieRepository;
+using MovieTracker.Repositories.UserFollowingRepository;
 
 namespace MovieTracker.Controllers
 {
@@ -10,11 +12,14 @@ namespace MovieTracker.Controllers
     public class MovieController : ControllerBase
     {
         private readonly IMovieRepository _repositoryMovie;
+        private readonly IUserRepository _repositoryUser;
+        private readonly IUserFollowingRepository _repositoryUserFollowing;
 
-        public MovieController(IMovieRepository repositoryMovie)
+        public MovieController(IMovieRepository repositoryMovie, IUserRepository repositoryUser, IUserFollowingRepository repositoryUserFollowing)
         {
             _repositoryMovie = repositoryMovie;
-
+            _repositoryUserFollowing = repositoryUserFollowing;
+            _repositoryUser = repositoryUser;
         }
 
         [HttpGet]
@@ -91,6 +96,117 @@ namespace MovieTracker.Controllers
             return Ok(moviesToReturn);
 
         }
+
+        [HttpGet("Movie/{userEmail}")]
+        public async Task<IActionResult> GetMoviesForUser(string userEmail)
+        {
+            var movies = _repositoryMovie.GetMoviesByUser(userEmail);
+            if (!movies.Any())
+            {
+                return BadRequest("This user didn't watch any movie.");
+            }
+            var moviesToReturn = new List<MovieDTO>();
+
+            foreach (var movie in movies)
+            {
+                var auxMovie = new MovieDTO(movie);
+
+                moviesToReturn.Add(auxMovie);
+            }
+
+            return Ok(moviesToReturn);
+        }
+
+        [HttpGet("Movie/Follower/{userEmail}/{followerEmail}")]
+        public async Task<IActionResult> GetMoviesForFollower(string userEmail, string followerEmail)
+        {
+            var user1 = await _repositoryUser.GetUsersByEmail(userEmail);
+            var user2 = await _repositoryUser.GetUsersByEmail(followerEmail);
+            var userFollowing = await _repositoryUserFollowing.GetUserFollowingByIds(user1.Id, user2.Id);
+
+            if (userFollowing == null)
+            {
+                return BadRequest("You need to follow this user in order to see their watched movies.");
+            }
+
+            var movies = _repositoryMovie.GetMoviesByUser(followerEmail);
+            if (!movies.Any())
+            {
+                return BadRequest("This user didn't watch any movie.");
+            }
+            var moviesToReturn = new List<MovieDTO>();
+
+            foreach (var movie in movies)
+            {
+                var auxMovie = new MovieDTO(movie);
+
+                moviesToReturn.Add(auxMovie);
+            }
+
+            return Ok(moviesToReturn);
+        }
+
+        [HttpGet("MovieSuggestions/{userEmail}")]
+        public async Task<IActionResult> GetMovieSuggestionsForUser(string userEmail)
+        {
+            var movies = _repositoryMovie.GetSuggestionsForUser(userEmail);
+            if (movies == null)
+            {
+                var popularMovies = _repositoryMovie.GetPopularMovies();
+
+                var popularMoviesToReturn = new List<MovieDTO>();
+
+                foreach (var movie in popularMovies)
+                {
+
+                    var auxMovie = new MovieDTO(movie);
+
+                    popularMoviesToReturn.Add(auxMovie);
+                }
+
+                return Ok(popularMoviesToReturn);
+            }
+
+            var watchedMovies = _repositoryMovie.GetMoviesByUser(userEmail);
+
+            var moviesToReturn = new List<MovieDTO>();
+
+            foreach (var movie in movies)
+            {
+                if (watchedMovies.Contains(movie))
+                {
+                    var auxMovie = new MovieDTO(movie);
+
+                    moviesToReturn.Add(auxMovie);
+                }
+            }
+
+            if (!moviesToReturn.Any())
+            {
+                return BadRequest("There are no suggestions for you.");
+            }
+
+            return Ok(moviesToReturn);
+        }
+
+        [HttpGet("PopularMovies")]
+        public async Task<IActionResult> GetPopularMovies()
+        {
+            var movies = _repositoryMovie.GetPopularMovies();
+
+            var moviesToReturn = new List<MovieDTO>();
+
+            foreach (var movie in movies)
+            {
+
+                var auxMovie = new MovieDTO(movie);
+
+                moviesToReturn.Add(auxMovie); 
+            }
+
+            return Ok(moviesToReturn);
+        }
+        
 
         [HttpPost("AddMovie")]
         public async Task<IActionResult> Create([FromBody] MovieDTO movie)
