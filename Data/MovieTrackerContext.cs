@@ -20,8 +20,9 @@ namespace MovieTracker.Data
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Cast> Casts { get; set; }
         public DbSet<SessionToken> SessionTokens { get; set; }
+        public DbSet<UserFollowing> UserFollowing { get; set; }
 
-        
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

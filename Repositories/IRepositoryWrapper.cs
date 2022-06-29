@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MovieTracker.Repositories
 {
-    public interface IRepositoryWrapper
+    public interface IRepositoryWrapper 
     {
         IUserRepository User { get; }
         ISessionTokenRepository SessionToken { get; }
