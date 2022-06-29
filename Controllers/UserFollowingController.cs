@@ -109,5 +109,33 @@ namespace MovieTracker.Controllers
             return Ok(usersToReturn);
 
         }
+
+        //READ cine te urmareste
+        [HttpGet("UserFollowers/{userEmail}")]
+        public async Task<IActionResult> GetFollowersUsers(string userEmail)
+        {
+            var userAux = await _repositoryUser.GetUsersByEmail(userEmail);
+            if (userAux == null)
+            {
+                return BadRequest("The user cannot be found!");
+            }
+
+            var users = _repositoryUserFollowing.GetFollowersByUser(userEmail);
+            if (!users.Any())
+            {
+                return BadRequest("You have no followers");
+            }
+            var usersToReturn = new List<UserDTO>();
+
+            foreach (var user in users)
+            {
+                var auxUser = new UserDTO(user);
+
+                usersToReturn.Add(auxUser);
+            }
+
+            return Ok(usersToReturn);
+
+        }
     }
 }

@@ -38,5 +38,29 @@ namespace MovieTracker.Repositories.UserFollowingRepository
             }
             return usersFollowingToReturn;
         }
+
+        public List<User> GetFollowersByUser(string userEmail)
+        {
+            var userFollowers = (from a in _context.Users
+                                  join b in _context.UserFollowing on a.Id equals b.UserId
+                                  join c in _context.Users on b.FollowingPersonId equals c.Id
+                                  where c.UserName == userEmail
+                                  select new
+                                  {
+                                      a.FirstName,
+                                      a.LastName,
+                                      a.UserName
+                                  });
+            var userFollowersToReturn = new List<User>();
+            foreach (var user in userFollowers)
+            {
+                User newUserFollowers = new User();
+                newUserFollowers.FirstName = user.FirstName;
+                newUserFollowers.LastName = user.LastName;
+                newUserFollowers.UserName = user.UserName;
+                userFollowersToReturn.Add(newUserFollowers);
+            }
+            return userFollowersToReturn;
+        }
     }
 }
