@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieTracker.Entities;
 using MovieTracker.Models.DTOs;
 using MovieTracker.Repositories.ActorRepository;
@@ -16,9 +17,10 @@ namespace MovieTracker.Controllers
             _repositoryActor = repositoryActor;
 
         }
-        [HttpGet]
-        //[Authorize(Roles = "User")]
+
         // READ toti actorii
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllActors()
         {
             var actors = await _repositoryActor.GetAllActors();
@@ -36,6 +38,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("{name}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetActorByName(string name)
         {
             var actor = await _repositoryActor.GetActorByName(name);
@@ -50,6 +53,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("Movie/{movie}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetActorsByMovie(string movie)
         {
             var actors = _repositoryActor.GetActorsByMovie(movie);
@@ -71,6 +75,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpPost("AddActor")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] ActorDTO actor)
         {
             var newActor = new Actor
@@ -86,6 +91,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpPut("UpdateActor")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromBody] ActorDTO actor)
         {
             var actorUpdated = await _repositoryActor.GetActorByName(actor.Name);
@@ -96,6 +102,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpDelete("DeleteActor{name}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] string name)
         {
 

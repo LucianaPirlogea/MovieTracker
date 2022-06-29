@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieTracker.Models.DTOs;
 using MovieTracker.Models.Entities;
 using MovieTracker.Repositories;
@@ -21,6 +22,7 @@ namespace MovieTracker.Controllers
 
         //CREATE UserFollowing
         [HttpPost("AddUserFollowing/{userEmail1}_{userEmail2}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> Create(string userEmail1, string userEmail2)
         {
             var user1 = await _repositoryUser.GetUsersByEmail(userEmail1);
@@ -55,6 +57,7 @@ namespace MovieTracker.Controllers
 
         //DELETE UserFollowing
         [HttpDelete("DeleteUserFollowing/{userEmail1}_{userEmail2}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> Delete(string userEmail1, string userEmail2)
         {
 
@@ -84,6 +87,7 @@ namespace MovieTracker.Controllers
 
         //READ pe cine urmaresti
         [HttpGet("UserFollowing/{userEmail}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> GetFollowingUsers(string userEmail)
         {
             var userAux = await _repositoryUser.GetUsersByEmail(userEmail);
@@ -112,6 +116,7 @@ namespace MovieTracker.Controllers
 
         //READ cine te urmareste
         [HttpGet("UserFollowers/{userEmail}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> GetFollowersUsers(string userEmail)
         {
             var userAux = await _repositoryUser.GetUsersByEmail(userEmail);

@@ -42,7 +42,7 @@ namespace MovieTracker.Services.UserService
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(registerUser, UserRoleType.Admin);
+                await _userManager.AddToRoleAsync(registerUser, UserRoleType.User);
 
                 return true;
             }

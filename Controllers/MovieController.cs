@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieTracker.Entities;
 using MovieTracker.Models.DTOs;
 using MovieTracker.Repositories;
@@ -23,7 +24,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "User")]
+        [AllowAnonymous]
         // READ toate filmele
         public async Task<IActionResult> GetAllMovies()
         {
@@ -42,6 +43,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("{name}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetMovieByName(string name)
         {
             var movie = await _repositoryMovie.GetMovieByName(name);
@@ -56,6 +58,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("Category/{genre}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetMovieByCategory(string genre)
         {
             var movies = _repositoryMovie.GetMoviesByCategory(genre);
@@ -77,6 +80,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("Actor/{actor}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetMovieByActor(string actor)
         {
             var movies = _repositoryMovie.GetMoviesByActor(actor);
@@ -98,6 +102,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("Movie/{userEmail}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> GetMoviesForUser(string userEmail)
         {
             var movies = _repositoryMovie.GetMoviesByUser(userEmail);
@@ -118,6 +123,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("Movie/Follower/{userEmail}/{followerEmail}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> GetMoviesForFollower(string userEmail, string followerEmail)
         {
             var user1 = await _repositoryUser.GetUsersByEmail(userEmail);
@@ -147,6 +153,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("MovieSuggestions/{userEmail}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> GetMovieSuggestionsForUser(string userEmail)
         {
             var movies = _repositoryMovie.GetSuggestionsForUser(userEmail);
@@ -190,6 +197,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("PopularMovies")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetPopularMovies()
         {
             var movies = _repositoryMovie.GetPopularMovies();
@@ -209,6 +217,7 @@ namespace MovieTracker.Controllers
         
 
         [HttpPost("AddMovie")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] MovieDTO movie)
         {
             var newMovie = new Movie
@@ -226,6 +235,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpPut("UpdateMovie")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromBody] MovieDTO movie)
         {
             var movieUpdated = await _repositoryMovie.GetMovieByName(movie.Title);
@@ -239,6 +249,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpDelete("DeleteMovie{name}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] string name)
         {
 
