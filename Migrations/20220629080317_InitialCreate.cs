@@ -335,7 +335,8 @@ namespace MovieTracker.Migrations
                         name: "FK_Watcheds_Reviews_IdReview",
                         column: x => x.IdReview,
                         principalTable: "Reviews",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

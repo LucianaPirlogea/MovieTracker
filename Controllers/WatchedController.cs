@@ -20,7 +20,6 @@ namespace MovieTracker.Controllers
             _repositoryWatched = repositoryWatched;
             _repositoryMovie = repositoryMovie;
             _repositoryUser = repositoryUser;
-
         }
 
         //CREATE watched

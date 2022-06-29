@@ -42,7 +42,8 @@ namespace MovieTracker.Data
             modelBuilder.Entity<Review>()
                 .HasOne(a => a.Watched)
                 .WithOne(adr => adr.Review)
-                .HasForeignKey<Watched>(a => a.IdReview);
+                .HasForeignKey<Watched>(a => a.IdReview)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Many to Many
             modelBuilder.Entity<Watched>().HasKey(arp => new { arp.IdMovie, arp.IdUser });
