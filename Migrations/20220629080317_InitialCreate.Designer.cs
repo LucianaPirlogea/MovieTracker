@@ -12,7 +12,7 @@ using MovieTracker.Data;
 namespace MovieTracker.Migrations
 {
     [DbContext(typeof(MovieTrackerContext))]
-    [Migration("20220628144415_InitialCreate")]
+    [Migration("20220629080317_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -516,7 +516,8 @@ namespace MovieTracker.Migrations
 
                     b.HasOne("MovieTracker.Entities.Review", "Review")
                         .WithOne("Watched")
-                        .HasForeignKey("MovieTracker.Entities.Watched", "IdReview");
+                        .HasForeignKey("MovieTracker.Entities.Watched", "IdReview")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("MovieTracker.Entities.User", "User")
                         .WithMany("Watcheds")

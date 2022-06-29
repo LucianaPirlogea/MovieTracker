@@ -514,7 +514,8 @@ namespace MovieTracker.Migrations
 
                     b.HasOne("MovieTracker.Entities.Review", "Review")
                         .WithOne("Watched")
-                        .HasForeignKey("MovieTracker.Entities.Watched", "IdReview");
+                        .HasForeignKey("MovieTracker.Entities.Watched", "IdReview")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("MovieTracker.Entities.User", "User")
                         .WithMany("Watcheds")
