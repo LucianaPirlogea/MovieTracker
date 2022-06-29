@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieTracker.Entities;
 using MovieTracker.Models.DTOs;
 using MovieTracker.Repositories;
@@ -26,7 +27,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "User")]
+        [AllowAnonymous]
         // READ toate reviewurile
         public async Task<IActionResult> GetAllReviews()
         {
@@ -45,6 +46,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetReviewById(int id)
         {
             var review = await _repositoryReview.GetReviewById(id);
@@ -60,6 +62,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("Review/{numberOfStars}")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetReviewsByNumberOfStars(int numberOfStars)
         {
             var reviews = _repositoryReview.GetReviewsByNumberOfStars(numberOfStars);
@@ -81,6 +84,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("Movie/{movieTitle}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetReviewsByMovieTitle(string movieTitle)
         {
             var reviews = _repositoryReview.GetReviewsByMovieTitle(movieTitle);
@@ -102,6 +106,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("User/{userName}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> GetReviewByUserName(string userName)
         {
             var reviews = _repositoryReview.GetReviewsByUserName(userName);
@@ -123,6 +128,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("{userName}/{movieTitle}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> GetReviewByUserNameAndMovieTitle(string userName, string movieTitle)
         {
             var review = await _repositoryReview.GetReviewByUserNameAndMovieTitle(userName, movieTitle);
@@ -138,6 +144,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpPost("AddReview/{movieTitle}/{userEmail}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> Create([FromBody] ReviewDTO review, string movieTitle, string userEmail)
         {
 
@@ -178,6 +185,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpPut("UpdateReview")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> Update([FromBody] ReviewDTO review)
         {
             var reviewUpdated = await _repositoryReview.GetReviewById(review.Id);
@@ -191,6 +199,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpDelete("DeleteReview{id}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var reviewDeleted = await _repositoryReview.GetReviewById(id);

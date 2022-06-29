@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieTracker.Entities;
 using MovieTracker.Models.DTOs;
 using MovieTracker.Repositories;
@@ -24,6 +25,7 @@ namespace MovieTracker.Controllers
 
         //CREATE watched
         [HttpPost("AddWatched/{movieTitle}_{userEmail}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> Create(string movieTitle, string userEmail)
         {
             var movie = await _repositoryMovie.GetMovieByName(movieTitle);
@@ -59,6 +61,7 @@ namespace MovieTracker.Controllers
 
         //DELETE watched
         [HttpDelete("DeleteWatched/{movieTitle}_{userEmail}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> Delete(string movieTitle, string userEmail)
         {
 

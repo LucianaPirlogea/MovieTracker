@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieTracker.Entities;
 using MovieTracker.Models.DTOs;
 using MovieTracker.Repositories.CategoryRepository;
@@ -17,7 +18,7 @@ namespace MovieTracker.Controllers
 
         }
         [HttpGet]
-        //[Authorize(Roles = "User")]
+        [AllowAnonymous]
         // READ toate categoriile
         public async Task<IActionResult> GetAllCategories()
         {
@@ -36,6 +37,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpGet("{name}")]
+        [AllowAnonymous]
         // READ pt un nume de categorie dat
         public async Task<IActionResult> GetCategoryByName(string name)
         {
@@ -51,6 +53,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpPost("AddCategory")]
+        [Authorize(Roles = "Admin")]
         //CREATE category
         public async Task<IActionResult> Create([FromBody] CategoryDTO category)
         {
@@ -65,6 +68,7 @@ namespace MovieTracker.Controllers
         }
 
         [HttpDelete("DeleteCategory{name}")]
+        [Authorize(Roles = "Admin")]
         //DELETE category
         public async Task<IActionResult> Delete([FromRoute] string name)
         {
