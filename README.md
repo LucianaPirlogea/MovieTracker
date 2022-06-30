@@ -29,3 +29,8 @@
 
 ## Backlog
 We used Trello in order to manage and organise our tasks during the development of the application. This [link](https://trello.com/b/NZkGMXRF/proiect-mds) redirects to our backlog creation and user stories.
+
+## UML Use Case Diagram
+![UML-Diagram](https://user-images.githubusercontent.com/79576756/176692554-8d57f073-0547-4f14-904d-960066f7f6da.jpg)
+
+
