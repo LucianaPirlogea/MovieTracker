@@ -1,11 +1,16 @@
 # Movies Tracker
-.Net Application that keeps track of the movies you watched. It has features for following other users, discover and rating movies.
+Web API using .Net Framework that keeps track of the movies you watched. It has features for following other users, discover and rating movies.
 
 ## Team members
 - [Dobre Adriana-Lia](https://github.com/DobreAdriana)
 - [Guțu Ștefania-Alexandra](https://github.com/StefaniaGutu)
 - [Lăzăroiu Teodora-Bianca](https://github.com/TeodoraLazaroiu)
 - [Pirlogea Luciana-Elena](https://github.com/LucianaPirlogea)
+
+## Database Design
+The diagram that we used for our API is displayed below:
+![SQL-Diagram](https://user-images.githubusercontent.com/79576756/176704477-8daca699-c305-44a2-9ab3-369f2741312e.jpg)
+
 
 ## User stories
 |  | As | I want to | So that I can | 
@@ -33,4 +38,10 @@ We used Trello in order to manage and organise our tasks during the development 
 ## UML Use Case Diagram
 ![UML-Diagram](https://user-images.githubusercontent.com/79576756/176692554-8d57f073-0547-4f14-904d-960066f7f6da.jpg)
 
+## Bug Reporting
+We have encountered the following bugs: Here is the [link](https://github.com/LucianaPirlogea/MovieTracker/issues?q=is%3Aissue+is%3Aclosed) where you can see how we fixed them.
 
+## Code Standards
+We followed the [Microsoft C# Code standards](https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions).
+
+## Design Patterns
