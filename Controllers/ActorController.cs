@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MovieTracker.Entities;
 using MovieTracker.Models.DTOs;
 using MovieTracker.Repositories.ActorRepository;
+using MovieTracker.Repositories.MovieRepository;
 
 namespace MovieTracker.Controllers
 {
@@ -11,9 +12,11 @@ namespace MovieTracker.Controllers
     public class ActorController : ControllerBase
     {
         private readonly IActorRepository _repositoryActor;
+        private readonly IMovieRepository _repositoryMovie;
 
-        public ActorController(IActorRepository repositoryActor)
+        public ActorController(IMovieRepository repositoryMovie, IActorRepository repositoryActor)
         {
+            _repositoryMovie = repositoryMovie;
             _repositoryActor = repositoryActor;
 
         }
@@ -56,6 +59,11 @@ namespace MovieTracker.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetActorsByMovie(string movie)
         {
+            var movieAux = await _repositoryMovie.GetMovieByName(movie);
+            if (movieAux == null)
+            {
+                return BadRequest("The movie you search cannot be found!");
+            }
             var actors = _repositoryActor.GetActorsByMovie(movie);
             if (!actors.Any())
             {
@@ -95,6 +103,10 @@ namespace MovieTracker.Controllers
         public async Task<IActionResult> Update([FromBody] ActorDTO actor)
         {
             var actorUpdated = await _repositoryActor.GetActorByName(actor.Name);
+            if (actorUpdated == null)
+            {
+                return BadRequest("The actor you search cannot be found!");
+            }
             actorUpdated.Image = actor.Image;
             _repositoryActor.Update(actorUpdated);
             await _repositoryActor.SaveAsync();
@@ -107,6 +119,10 @@ namespace MovieTracker.Controllers
         {
 
             var actorDeleted = await _repositoryActor.GetActorByName(name);
+            if (actorDeleted == null)
+            {
+                return BadRequest("The actor you search cannot be found!");
+            }
             _repositoryActor.Delete(actorDeleted);
             await _repositoryActor.SaveAsync();
             return Ok();
