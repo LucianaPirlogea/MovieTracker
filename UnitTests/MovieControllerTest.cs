@@ -5,12 +5,6 @@ namespace MovieTracker.UnitTests
 {
     public class MovieControllerTest
     {
-        /*
-        private readonly IMovieRepository _repositoryMovie;
-        private readonly IUserRepository _repositoryUser;
-        private readonly IUserFollowingRepository _repositoryUserFollowing;
-
-        */
 
         [Fact]
         public void NewMovieHasNoTitle()
@@ -25,7 +19,7 @@ namespace MovieTracker.UnitTests
         {
             Movie movie = new Movie();
             DateTime releaseDate = movie.ReleaseDate;
-            Assert.Equal("01/01/0001 00:00:00", releaseDate.ToString());
+            Assert.Equal("01.01.0001 00:00:00", releaseDate.ToString());
         }
 
         [Fact]
@@ -44,15 +38,5 @@ namespace MovieTracker.UnitTests
             Assert.Null(poster);
         }
 
-        /*
-        [Fact]
-        public void GetMovieByNameReturnsBadRequest()
-        {
-            MovieController controller = new MovieController(_repositoryMovie, _repositoryUser, _repositoryUserFollowing);
-            var response = controller.GetMovieByName("Movie that doesn't exist");
-
-            Assert.Equal("The movie you search cannot be found!", response.ToString());
-        }
-        */
     }
 }

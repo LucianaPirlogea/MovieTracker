@@ -26,7 +26,7 @@ namespace MovieTracker.UnitTests
         {
             Review review = new Review();
             DateTime date = review.Date;
-            Assert.Equal("01/01/0001 00:00:00", date.ToString());
+            Assert.Equal("01.01.0001 00:00:00", date.ToString());
         }
     }
 }
