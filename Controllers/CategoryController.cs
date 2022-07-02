@@ -74,6 +74,10 @@ namespace MovieTracker.Controllers
         {
 
             var categoryDeleted = await _repositoryCategory.GetCategoryByName(name);
+            if (categoryDeleted == null)
+            {
+                return BadRequest("The category you search cannot be found!");
+            }
             _repositoryCategory.Delete(categoryDeleted);
             await _repositoryCategory.SaveAsync();
             return Ok();

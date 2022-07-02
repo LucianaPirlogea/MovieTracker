@@ -37,7 +37,10 @@ namespace MovieTracker.Repositories.ReviewRepository
                 newReview.Date = review.Date;
                 reviewsToReturn.Add(newReview);
             }
-
+            if (!reviewsToReturn.Any())
+            {
+                return null;
+            }
             return reviewsToReturn[0];
         }
 

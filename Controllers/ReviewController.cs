@@ -87,6 +87,11 @@ namespace MovieTracker.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetReviewsByMovieTitle(string movieTitle)
         {
+            var movie = await _repositoryMovie.GetMovieByName(movieTitle);
+            if (movie == null)
+            {
+                return BadRequest("The movie you search cannot be found!");
+            }
             var reviews = _repositoryReview.GetReviewsByMovieTitle(movieTitle);
 
             if (!reviews.Any())
@@ -109,6 +114,12 @@ namespace MovieTracker.Controllers
         [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> GetReviewByUserName(string userName)
         {
+            var user = await _repositoryUser.GetUsersByEmail(userName);
+
+            if (user == null)
+            {
+                return BadRequest("There is no user with this username");
+            }
             var reviews = _repositoryReview.GetReviewsByUserName(userName);
 
             if (!reviews.Any())
@@ -131,6 +142,19 @@ namespace MovieTracker.Controllers
         [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> GetReviewByUserNameAndMovieTitle(string userName, string movieTitle)
         {
+            var user = await _repositoryUser.GetUsersByEmail(userName);
+
+            if (user == null)
+            {
+                return BadRequest("There is no user with this username");
+            }
+
+            var movie = await _repositoryMovie.GetMovieByName(movieTitle);
+            if (movie == null)
+            {
+                return BadRequest("The movie you search cannot be found!");
+            }
+
             var review = await _repositoryReview.GetReviewByUserNameAndMovieTitle(userName, movieTitle);
 
             if (review == null)
@@ -189,7 +213,10 @@ namespace MovieTracker.Controllers
         public async Task<IActionResult> Update([FromBody] ReviewDTO review)
         {
             var reviewUpdated = await _repositoryReview.GetReviewById(review.Id);
-
+            if (reviewUpdated == null)
+            {
+                return BadRequest("The review does not exist");
+            }
             reviewUpdated.NumberOfStars = review.NumberOfStars;
             reviewUpdated.Comment = review.Comment;
             reviewUpdated.Date = DateTime.Now;
@@ -203,7 +230,10 @@ namespace MovieTracker.Controllers
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var reviewDeleted = await _repositoryReview.GetReviewById(id);
-
+            if (reviewDeleted == null)
+            {
+                return BadRequest("The review does not exist");
+            }
             _repositoryReview.Delete(reviewDeleted);
             await _repositoryReview.SaveAsync();
             return Ok();

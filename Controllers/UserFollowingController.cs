@@ -34,7 +34,7 @@ namespace MovieTracker.Controllers
             var user2 = await _repositoryUser.GetUsersByEmail(userEmail2);
             if (user2 == null)
             {
-                return BadRequest("The user cannot be found!");
+                return BadRequest("The person you want to follow cannot be found!");
             }
 
             var userFollowing = await _repositoryUserFollowing.GetUserFollowingByIds(user1.Id, user2.Id);
@@ -70,7 +70,7 @@ namespace MovieTracker.Controllers
             var user2 = await _repositoryUser.GetUsersByEmail(userEmail2);
             if (user2 == null)
             {
-                return BadRequest("The user cannot be found!");
+                return BadRequest("The person you want to unfollow cannot be found!");
             }
 
             var userFollowing = await _repositoryUserFollowing.GetUserFollowingByIds(user1.Id, user2.Id);

@@ -54,6 +54,10 @@ namespace MovieTracker.Controllers
         {
 
             var profileDeleted = await _repository.User.GetUsersByEmail(email);
+            if (profileDeleted == null)
+            {
+                return BadRequest("There is no user with this username");
+            }
             _userRepository.Delete(profileDeleted);
             await _userRepository.SaveAsync();
             return Ok();
