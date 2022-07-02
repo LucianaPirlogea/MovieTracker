@@ -38,8 +38,16 @@ We used Trello in order to manage and organise our tasks during the development 
 ## UML Use Case Diagram
 ![UML-Diagram](https://user-images.githubusercontent.com/79576756/176692554-8d57f073-0547-4f14-904d-960066f7f6da.jpg)
 
+
+## Automation Testing
+
+For testing we have created an xUnit Testing Project containing 4 classes for the following controllers of the API: ActorController, CategoryController, MovieController and ReviewController. Each class contains methods that check the behaviour of the application when new entities are created. The methods follow the Arrange-Act-Assert method for writing tests which means preparing the testing objects, performing the test and verifying the result by giving an answer (Passed or Failed) to the test.
+
+We have used the xUnit and Microsoft.NET.Test.Sdk NuGet packages for creating and building unit tests. After finishing all tests, it is displayed the number of tests that the application has runned on successfully and what problems have occurred on tests that the application has failed on.
+
 ## Source Control
 Our project is uploaded on github, our commits, branches and merging can be seen on [the main page](https://github.com/LucianaPirlogea/MovieTracker).
+
 
 ## Bug Reporting
 We have encountered the following bugs: Here is the [link](https://github.com/LucianaPirlogea/MovieTracker/issues?q=is%3Aissue+is%3Aclosed) where you can see how we fixed them.
