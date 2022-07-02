@@ -53,6 +53,11 @@ Our project is uploaded on github, our commits, branches and merging can be seen
 ## Bug Reporting
 We have encountered the following bugs: Here is the [link](https://github.com/LucianaPirlogea/MovieTracker/issues?q=is%3Aissue+is%3Aclosed) where you can see how we fixed them.
 
+## Build Tool
+Our backend application was built by the Visual Studio default MSBuild tool.
+![Captură ecran (1157)](https://user-images.githubusercontent.com/45512830/176993076-6d54c917-62a1-432b-991e-0aa8c7124ef2.png)
+
+
 ## Code Standards
 We followed the [Microsoft C# Code standards](https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions).
 
