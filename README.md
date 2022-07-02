@@ -41,7 +41,7 @@ We used Trello in order to manage and organise our tasks during the development 
 
 ## Automation Testing
 
-For testing we have created an xUnit Testing Project containing 4 classes for the following controllers of the API: ActorController, CategoryController, MovieController and ReviewController. Each class contains methods that check the behaviour of the application when new entities are created. The methods follow the Arrange-Act-Assert method for writing tests which means preparing the testing objects, performing the test and verifying the result by giving an answer (Passed or Failed) to the test.
+For testing we have created an xUnit [Testing Project](https://github.com/LucianaPirlogea/MovieTracker/tree/master/UnitTests) containing 4 classes for the following controllers of the API: ActorController, CategoryController, MovieController and ReviewController. Each class contains methods that check the behaviour of the application when new entities are created. The methods follow the Arrange-Act-Assert method for writing tests which means preparing the testing objects, performing the test and verifying the result by giving an answer (Passed or Failed) to the test.
 
 We have used the xUnit and Microsoft.NET.Test.Sdk NuGet packages for creating and building unit tests. After finishing all tests, it is displayed the number of tests that the application has runned on successfully and what problems have occurred on tests that the application has failed on.
 
