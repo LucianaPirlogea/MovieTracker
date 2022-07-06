@@ -173,7 +173,7 @@ namespace MovieTracker.Repositories.MovieRepository
                                a.Duration,
                                a.Poster
                            });
-            var movies = grouped.GroupBy(p => p.Id).OrderByDescending(g => g.Count()).Select(x => x.First()).Take(2).ToList();
+            var movies = grouped.GroupBy(p => p.Id).OrderByDescending(g => g.Count()).Select(x => x.First()).Take(5).ToList();
 
             var moviesToReturn = new List<Movie>();
             foreach (var movie in movies)

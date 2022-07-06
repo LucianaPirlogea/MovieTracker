@@ -12,7 +12,7 @@ using MovieTracker.Data;
 namespace MovieTracker.Migrations
 {
     [DbContext(typeof(MovieTrackerContext))]
-    [Migration("20220629080317_InitialCreate")]
+    [Migration("20220705200908_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
