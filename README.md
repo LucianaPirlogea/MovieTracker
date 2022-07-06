@@ -7,6 +7,8 @@ Web API using .Net Framework that keeps track of the movies you watched. It has 
 - [Lăzăroiu Teodora-Bianca](https://github.com/TeodoraLazaroiu)
 - [Pirlogea Luciana-Elena](https://github.com/LucianaPirlogea)
 
+## Demo 
+Link Youtube : (here)[https://youtu.be/s2ImtdFtMmY] 
 ## Database Design
 The diagram that we used for our API is displayed below:
 ![SQL-Diagram](https://user-images.githubusercontent.com/79576756/176704477-8daca699-c305-44a2-9ab3-369f2741312e.jpg)
