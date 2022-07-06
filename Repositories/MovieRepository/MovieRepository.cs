@@ -122,6 +122,7 @@ namespace MovieTracker.Repositories.MovieRepository
                            {
                                e.Name
                            });
+
             if (!grouped.Any())
             {
                 return null;

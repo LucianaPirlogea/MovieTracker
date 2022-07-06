@@ -19,7 +19,7 @@ namespace MovieTracker.UnitTests
         {
             Movie movie = new Movie();
             DateTime releaseDate = movie.ReleaseDate;
-            Assert.Equal("01.01.0001 00:00:00", releaseDate.ToString());
+            Assert.Equal("01-Jan-01 00:00:00", releaseDate.ToString());
         }
 
         [Fact]

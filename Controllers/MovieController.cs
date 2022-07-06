@@ -193,7 +193,7 @@ namespace MovieTracker.Controllers
                 return BadRequest("There is no user with this username");
             }
             var movies = _repositoryMovie.GetSuggestionsForUser(userEmail);
-            if (movies == null)
+            if (!movies.Any())
             {
                 var popularMovies = _repositoryMovie.GetPopularMovies();
 
@@ -214,9 +214,9 @@ namespace MovieTracker.Controllers
 
             var moviesToReturn = new List<MovieDTO>();
 
-            foreach (var movie in movies)
+            foreach (Movie movie in movies)
             {
-                if (watchedMovies.Contains(movie))
+                if (!watchedMovies.Any(m => m.Id == movie.Id))
                 {
                     var auxMovie = new MovieDTO(movie);
 
