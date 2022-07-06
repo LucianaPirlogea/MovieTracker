@@ -39,7 +39,8 @@ The diagram that we used for our API is displayed below:
 We used Trello in order to manage and organise our tasks during the development of the application. This [link](https://trello.com/b/NZkGMXRF/proiect-mds) redirects to our backlog creation and user stories.
 
 ## UML Use Case Diagram
-![UML-Diagram](https://user-images.githubusercontent.com/79576756/176692554-8d57f073-0547-4f14-904d-960066f7f6da.jpg)
+![UML-Diagram](https://user-images.githubusercontent.com/79576756/177638590-282c13e8-a7fa-48ea-96a2-d7a27443d5d0.jpg)
+
 
 
 ## Automation Testing
@@ -67,6 +68,7 @@ We followed the [Microsoft C# Code standards](https://docs.microsoft.com/en-us/d
 ## Design Patterns
 In our implementation, we used two different design patterns: 
 - [Repository Design Pattern](https://dotnettutorials.net/lesson/repository-design-pattern-csharp/#:~:text=The%20Repository%20Design%20Pattern%20in%20C%23%20Mediates%20between%20the%20domain,and%20the%20data%20access%20logic): mediates between the domain and the data mapping layers using a collection-like interface for accessing the domain objects. In other words, we can say that a Repository Design Pattern acts as a middleman or middle layer between the rest of the application and the data access logic.
-![repositorydesignpattern](https://user-images.githubusercontent.com/79576756/176862864-fa5d05fb-f080-4e2c-af76-8e031af70478.jpg)
+![repositorydesignpattern](https://user-images.githubusercontent.com/79576756/177638685-5a809019-400f-4328-8970-958bbf347b86.jpg)
+
 - [Factory Method](https://refactoring.guru/design-patterns/factory-method): a creational design pattern that provides an interface for creating objects in a superclass, but allows subclasses to alter the type of objects that will be created.
 ![factory](https://user-images.githubusercontent.com/79576756/176868607-a08f9203-9fa8-484b-bf4b-9fb050ac8430.jpg)
