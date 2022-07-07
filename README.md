@@ -11,7 +11,8 @@ Web API using .Net Framework that keeps track of the movies you watched. It has 
 Link Youtube : [here](https://youtu.be/s2ImtdFtMmY) 
 ## Database Design
 The diagram that we used for our API is displayed below:
-![SQL-Diagram](https://user-images.githubusercontent.com/79576756/177638477-f99bc416-fec4-4ed1-a08b-318351440403.jpg)
+
+![SQL-Diagram](https://user-images.githubusercontent.com/79576756/177700492-722a081b-39b9-42fa-bae0-a5832a20fae0.jpg)
 
 
 
@@ -68,7 +69,7 @@ We followed the [Microsoft C# Code standards](https://docs.microsoft.com/en-us/d
 ## Design Patterns
 In our implementation, we used two different design patterns: 
 - [Repository Design Pattern](https://dotnettutorials.net/lesson/repository-design-pattern-csharp/#:~:text=The%20Repository%20Design%20Pattern%20in%20C%23%20Mediates%20between%20the%20domain,and%20the%20data%20access%20logic): mediates between the domain and the data mapping layers using a collection-like interface for accessing the domain objects. In other words, we can say that a Repository Design Pattern acts as a middleman or middle layer between the rest of the application and the data access logic.
-![repositorydesignpattern](https://user-images.githubusercontent.com/79576756/177638685-5a809019-400f-4328-8970-958bbf347b86.jpg)
+![repositorydesignpattern](https://user-images.githubusercontent.com/79576756/177700536-3dd6cf6a-0301-4cb6-8a8a-ace2d05b27c1.jpg)
 
 - [Factory Method](https://refactoring.guru/design-patterns/factory-method): a creational design pattern that provides an interface for creating objects in a superclass, but allows subclasses to alter the type of objects that will be created.
 ![factory](https://user-images.githubusercontent.com/79576756/176868607-a08f9203-9fa8-484b-bf4b-9fb050ac8430.jpg)
